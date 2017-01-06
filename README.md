@@ -1,40 +1,31 @@
-# electron-quick-start
+# Android Manager
+An electron application for managing android
 
-**Clone and run for a quick way to see Electron in action.**
+Features:
+---------
 
-This is a minimal Electron application based on the [Quick Start Guide](http://electron.atom.io/docs/tutorial/quick-start) within the Electron documentation.
+1.Has Live reload
 
-**Use this app along with the [Electron API Demos](http://electron.atom.io/#get-started) app for API code examples to help you get started.**
+2.Packaging for Windows and Mac
 
-A basic Electron application needs just these files:
+3.React/Redux ready
 
-- `package.json` - Points to the app's main file and lists its details and dependencies.
-- `main.js` - Starts the app and creates a browser window to render HTML. This is the app's **main process**.
-- `index.html` - A web page to render. This is the app's **renderer process**.
+Steps:
+------
+1. npm install
 
-You can learn more about each of these components within the [Quick Start Guide](http://electron.atom.io/docs/tutorial/quick-start).
+2. npm start
 
-## To Use
 
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+npm scripts:
+============
 
-```bash
-# Clone this repository
-git clone https://github.com/electron/electron-quick-start
-# Go into the repository
-cd electron-quick-start
-# Install dependencies
-npm install
-# Run the app
-npm start
+```json
+"build": "runs the app in electron after webpack bundling",
+"build-web": "runs the app in browser after webpack bundling",
+"start": "runs the app in dev mode and in electron with hot reload using localhost:8080 of webpack-dev-server",
+"start-web": "runs the app in dev mode and in browser with hot reload",
+"package-win": "bundles app in production mode and builds win app with all code bundled",
+"package-darwin": "bundles app in production mode and builds mac app with all code bundled"
 ```
-
-Learn more about Electron and its API in the [documentation](http://electron.atom.io/docs/).
-
-## Other Example Apps
-
-For more example apps, see the
-[list of boilerplates](http://electron.atom.io/community/#boilerplates)
-created by the awesome electron community.
-
-#### License [CC0 1.0 (Public Domain)](LICENSE.md)
+=======

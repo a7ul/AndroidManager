@@ -1,0 +1,38 @@
+{
+  "plugins": [
+    "react"
+  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "env": {
+    "es6": true,
+    "node": true,
+    "mocha": true,
+    "browser": true
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "no-console": 0,
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ]
+  },
+  "globals": {
+    "document": true,
+    "__DEV__": true,
+    "__ELECTRON__": true
+  }
+}
