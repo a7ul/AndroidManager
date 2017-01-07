@@ -5,11 +5,7 @@ const path = require('path');
 const electron = require('electron');
 const nativeImage = require('electron').nativeImage;
 // Module to control application life.
-const {
-  app,
-  Menu,
-  Tray
-} = electron;
+const {app, Menu, Tray} = electron;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 let iconPath = '';
@@ -22,8 +18,7 @@ iconPath = path.resolve(__dirname, 'app/assets/electron/tray.png');
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    title: 'MyApp',
-    resizable: true,
+    title: 'Android Manager', resizable: true,
     // alwaysOnTop: true,
     frame: true
   });
@@ -31,12 +26,17 @@ function createWindow() {
   if (process.env.NODE_ENV === 'dev') {
     mainWindow.loadURL('http://localhost:8080');
     mainWindow.webContents.openDevTools();
+  } else if (process.env.NODE_ENV === 'prod') {
+    mainWindow.webContents.openDevTools();
+    mainWindow.loadURL('file://' + __dirname + '/index.html');
+    process.chdir(path.resolve(process.resourcesPath, 'app'));
   } else {
     mainWindow.loadURL('file://' + __dirname + '/index.html');
+    mainWindow.webContents.openDevTools();
   }
 
   // Emitted when the window is closed.
-  mainWindow.on('closed', function () {
+  mainWindow.on('closed', function() {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
@@ -52,26 +52,28 @@ app.on('ready', () => {
 
   tray = new Tray(image);
   tray.on('click', () => {
-    mainWindow.isVisible() ?
-      mainWindow.hide() :
-      mainWindow.show();
+    mainWindow.isVisible()
+      ? mainWindow.hide()
+      : mainWindow.show();
   });
 
   tray.on('right-click', function handleClicked() {
-    const contextMenu = Menu.buildFromTemplate([{
-      label: 'Exit',
-      type: 'normal',
-      click: () => {
-        app.quit();
+    const contextMenu = Menu.buildFromTemplate([
+      {
+        label: 'Exit',
+        type: 'normal',
+        click: () => {
+          app.quit();
+        }
       }
-    }]);
+    ]);
     tray.popUpContextMenu(contextMenu);
   });
   createWindow();
 });
 
 // Quit when all windows are closed.
-app.on('window-all-closed', function () {
+app.on('window-all-closed', function() {
   tray.displayBalloon({});
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
@@ -80,7 +82,7 @@ app.on('window-all-closed', function () {
   }
 });
 
-app.on('activate', function () {
+app.on('activate', function() {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {

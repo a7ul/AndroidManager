@@ -27,7 +27,7 @@ module.exports = {
       test: /\.scss$/,
       loaders: ['style', 'css', 'resolve-url', 'sass?sourceMap']
     }, {
-      test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
+      test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$|\.bin$/,
       loader: 'file?name=bundle/[hash].[ext]'
     }, {
       test: /\.json$/,

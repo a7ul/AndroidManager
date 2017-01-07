@@ -777,7 +777,7 @@ bluebird@^2.9.30:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-2.11.0.tgz#534b9033c022c9579c56ba3b3e5a5caafbb650e1"
 
-bluebird@^3.1.1:
+bluebird@^3.1.1, bluebird@^3.4.6:
   version "3.4.7"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.4.7.tgz#f72d760be09b7f76d08ed8fae98b289a8d05fab3"
 
@@ -1473,6 +1473,13 @@ electron-packager@^7.0.2:
     rcedit "^0.5.1"
     resolve "^1.1.6"
     run-series "^1.1.1"
+
+electron-sudo:
+  version "4.0.12"
+  resolved "https://registry.yarnpkg.com/electron-sudo/-/electron-sudo-4.0.12.tgz#17d27fcb33837b7f6fd3a7946f168d6590566a53"
+  dependencies:
+    babel-runtime "^6.18.0"
+    bluebird "^3.4.6"
 
 electron@^1.4.1:
   version "1.4.13"
