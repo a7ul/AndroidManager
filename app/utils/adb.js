@@ -5,13 +5,12 @@ import adbUrl from '../bin/24/adb.osx.bin';
 console.log('adb binary:', adbUrl);
 
 const executeAdb = (commandsarray = []) => {
-  const commands = (commandsarray instanceof Array)
-    ? commandsarray
-    : [commandsarray];
-
-  console.log('command: adb', commands.join(' '));
   return new Promise((resolve, reject) => {
-    childProcess.execFile(adbUrl, commands, (error, stdout, stderr) => {
+    if (!(commandsarray instanceof Array)) {
+      return reject('commands not an array');
+    }
+    console.log('command: adb', commandsarray.join(' '));
+    childProcess.execFile(adbUrl, commandsarray, (error, stdout, stderr) => {
       if (error) {
         return reject(stderr);
       }
@@ -20,10 +19,21 @@ const executeAdb = (commandsarray = []) => {
   });
 };
 
+const executeAdbForDevice = (serial, command) => {
+  return executeAdb([
+    '-s', serial, ...command
+  ]);
+};
+
 const listDevices = () => {
-  return executeAdb('devices').then(parser.listDevices);
+  return executeAdb(['devices']).then(parser.parseListDevices);
+};
+
+const getDeviceProperties = (serial) => {
+  return executeAdbForDevice(serial, ['shell', 'getprop']).then(parser.parseDeviceProperties);
 };
 
 module.exports = {
-  listDevices
+  listDevices,
+  getDeviceProperties
 };

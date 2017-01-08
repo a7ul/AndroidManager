@@ -9,28 +9,35 @@ import {initStore} from './redux/store/store';
 import initialStoreState from './storeState.json';
 import {connect} from 'react-redux';
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 const store = initStore(initialStoreState);
 const history = syncHistoryWithStore(hashHistory, store);
 
 const MainComponent = connect(mapStateToProps, mapDispatchToProps)(React.createClass({
-    render() {
-        return (
-            <div>
-                <Router routes={routes} history={history}/>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <MuiThemeProvider>
+        <div>
+          <Router routes={routes} history={history}/>
+        </div>
+      </MuiThemeProvider>
+    );
+  }
 }));
 
 const mapStateToProps = (state) => {
-    return {state: state};
+  return {state: state};
 };
 
 const mapDispatchToProps = () => {
-    return {};
+  return {};
 };
 
 render(
-    <Provider store={store}>
-    <MainComponent/>
+  <Provider store={store}>
+  <MainComponent/>
 </Provider>, document.getElementById('root'));

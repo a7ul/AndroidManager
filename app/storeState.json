@@ -1,5 +1,9 @@
 {
     "sample": {
         "payload": "Yo! Everything is running"
+    },
+    "devices": {
+        "devicesList": [],
+        "selectedDevice": null
     }
 }

@@ -3,4 +3,3 @@ echo 'changing permission for bundled adb binary'
 rawMD5Result=$(md5 app/bin/24/adb.osx.bin)
 adbBinMD5=${rawMD5Result##*= }
 chmod 755 bundle/${adbBinMD5}.bin
- 

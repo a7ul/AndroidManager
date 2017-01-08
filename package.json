@@ -6,14 +6,14 @@
   "scripts": {
     "test": "NODE_ENV='test' mocha test --recursive --require babel-core/register",
     "testw": "NODE_ENV='test' mocha test --recursive --require babel-core/register -w",
-    "start": "NODE_ENV='dev' WEBPACK_TARGET='electron'  webpack-dev-server --hot --inline & NODE_ENV='dev' electron index.js",
+    "start": "ttab \"NODE_ENV='dev' ./node_modules/.bin/electron index.js\" && NODE_ENV='dev' WEBPACK_TARGET='electron'  webpack-dev-server --hot --inline",
     "start-web": "NODE_ENV='dev' WEBPACK_TARGET='web' webpack-dev-server --hot --inline",
-    "build": "WEBPACK_TARGET='electron' webpack -p && electron index.js",
+    "build": "WEBPACK_TARGET='electron' webpack -p && NODE_ENV='build' electron index.js",
     "build-web": "WEBPACK_TARGET='web' webpack -p && open index.html",
     "lint": "eslint --ext js --ext jsx app test",
     "sasslint": "sass-lint 'app/**/*.scss' -v -q",
-    "package-win": "NODE_ENV='prod' WEBPACK_TARGET='electron' webpack -p && electron-packager ./ MyApp --platform=win32 --arch=x64 --out ~/Desktop/MyApp-Windowsx86 --version 1.4.1",
-    "package-darwin": "NODE_ENV='prod' WEBPACK_TARGET='electron' webpack -p && sh deploy/pre-package.sh && electron-packager ./ MyApp --platform=darwin --arch=x64 --out ~/Desktop/MyApp-Macx86 --version 1.4.1"
+    "package-win": "WEBPACK_TARGET='electron' webpack -p && electron-packager ./ MyApp --platform=win32 --arch=x64 --out ~/Desktop/MyApp-Windowsx86 --version 1.4.1",
+    "package-darwin": "WEBPACK_TARGET='electron' webpack -p && sh deploy/pre-package.sh && electron-packager ./ MyApp --platform=darwin --arch=x64 --out ~/Desktop/MyApp-Macx86 --version 1.4.1"
   },
   "author": "GitHub",
   "repository": "https://github.com/master-atul/android-manager",
@@ -28,10 +28,12 @@
   "license": "CC0-1.0",
   "dependencies": {
     "electron-sudo": "^4.0.12",
-    "react": "^15.3.0",
-    "react-dom": "^15.3.0",
+    "material-ui": "^0.16.6",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
     "react-router": "^2.6.1",
     "react-router-redux": "^4.0.5",
+    "react-tap-event-plugin": "^2.0.1",
     "redux-logger": "^2.6.1",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.1.0"
@@ -61,6 +63,7 @@
     "sass-lint": "^1.7.0",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.0",
+    "ttab": "^0.5.0",
     "webpack": "^1.13.0",
     "webpack-dev-server": "^1.14.1"
   }

@@ -26,13 +26,13 @@ function createWindow() {
   if (process.env.NODE_ENV === 'dev') {
     mainWindow.loadURL('http://localhost:8080');
     mainWindow.webContents.openDevTools();
-  } else if (process.env.NODE_ENV === 'prod') {
+  } else if (process.env.NODE_ENV === 'build') {
     mainWindow.webContents.openDevTools();
     mainWindow.loadURL('file://' + __dirname + '/index.html');
-    process.chdir(path.resolve(process.resourcesPath, 'app'));
   } else {
     mainWindow.loadURL('file://' + __dirname + '/index.html');
     mainWindow.webContents.openDevTools();
+    process.chdir(path.resolve(process.resourcesPath, 'app'));
   }
 
   // Emitted when the window is closed.
@@ -74,7 +74,7 @@ app.on('ready', () => {
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
-  tray.displayBalloon({});
+  tray.displayBalloon({title: 'Android Manager', content: 'closed'});
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
