@@ -4,6 +4,11 @@ import {bindActionCreators} from 'redux';
 import DeviceList from '../components/DeviceList/DeviceList';
 import * as actions from '../redux/actions/index';
 import adb from '../utils/adb';
+import Divider from 'material-ui/Divider';
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import FlatButton from 'material-ui/FlatButton';
 
 class HomePage extends Component {
   listDevices() {
@@ -31,8 +36,13 @@ class HomePage extends Component {
     const vm = this;
     return (
       <div>
-        {/*<Test content={this.props.state.sample.payload} onClick={this.props.actions.sampleAction}/>*/}
-        <DeviceList onDeviceClick={(device) => vm.onDeviceSelect(device)} devices={vm.props.state.devices.devicesList}></DeviceList>
+        <AppBar
+            title="Detected devices"
+            onTitleTouchTap={()=>vm.listDevices()}
+            iconElementRight={<FlatButton label="refresh" onClick={()=>vm.listDevices()} />}
+          />
+        <Divider />
+        <DeviceList onDeviceClick={(device) => vm.onDeviceSelect(device)} selectedDevice={vm.props.state.devices.selectedDevice} devices={vm.props.state.devices.devicesList}></DeviceList>
       </div>
     );
   }

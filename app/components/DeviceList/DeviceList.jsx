@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import style from './DeviceList.style';
 import Paper from 'material-ui/Paper';
-import AndroidPhoneIcon from 'material-ui/svg-icons/hardware/phone-android';
+import SmartphoneIcon from 'material-ui/svg-icons/hardware/smartphone';
+import LabelIcon from 'material-ui/svg-icons/action/label-outline';
+import InfoIcon from 'material-ui/svg-icons/action/info-outline';
+import {List, ListItem} from 'material-ui/List';
 
 class DeviceList extends Component {
   render() {
@@ -9,20 +12,20 @@ class DeviceList extends Component {
       <div style={style.container}>
         {this.props.devices.map((d, i) => {
           return (
-            <Paper style={style.deviceBox} key={i} zDepth={2}>
-              <div onClick={() => this.props.onDeviceClick(d)} style={style.deviceBoxContent}>
-                <AndroidPhoneIcon style={style.phoneIcon}/>
-                <div style={style.deviceName}>Name: {d.properties['ro.product.model']}</div>
-                <div style={style.deviceSerial}>Serial: {d.serial}</div>
-                <div style={style.deviceStatus}>Status: {d.status}</div>
-              </div>
-            </Paper>
+            <div style={style.deviceBox} key={i} onClick={() => this.props.onDeviceClick(d)}>
+              <Paper style={style.deviceBoxContent} zDepth={2}>
+                <List>
+                  <ListItem style={style.infoItem} disabled={true} primaryText={d.properties['ro.product.model']} leftIcon={<SmartphoneIcon />}/>
+                  <ListItem style={style.infoItem} disabled={true} primaryText={d.serial} leftIcon={<LabelIcon />}/>
+                  <ListItem style={style.infoItem} disabled={true} primaryText={d.status} leftIcon={<InfoIcon />}/>
+                </List>
+              </Paper>
+            </div>
           );
         })}
-        <div>{(this.props.devices.length < 1)
-            ? 'No devices found!'
-            : ''}</div>
-
+        {(this.props.devices.length < 1) && <Paper style={style.noDevice}>
+          <div>No devices found !</div>
+        </Paper>}
       </div>
     );
   }
@@ -30,6 +33,7 @@ class DeviceList extends Component {
 
 DeviceList.propTypes = {
   devices: React.PropTypes.array.isRequired,
+  selectedDevice: React.PropTypes.string,
   onDeviceClick: React.PropTypes.func
 };
 

@@ -13,6 +13,8 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 const store = initStore(initialStoreState);
 const history = syncHistoryWithStore(hashHistory, store);
@@ -20,7 +22,7 @@ const history = syncHistoryWithStore(hashHistory, store);
 const MainComponent = connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   render() {
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <div>
           <Router routes={routes} history={history}/>
         </div>
