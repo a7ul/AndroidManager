@@ -4,11 +4,10 @@ import {bindActionCreators} from 'redux';
 import DeviceList from '../components/DeviceList/DeviceList';
 import * as actions from '../redux/actions/index';
 import adb from '../utils/adb';
-import Divider from 'material-ui/Divider';
 import AppBar from 'material-ui/AppBar';
+import {push} from 'react-router-redux';
 import IconButton from 'material-ui/IconButton';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import FlatButton from 'material-ui/FlatButton';
+import RefreshIcon from 'material-ui/svg-icons/navigation/refresh';
 
 class HomePage extends Component {
   listDevices() {
@@ -27,7 +26,8 @@ class HomePage extends Component {
   }
   onDeviceSelect(device) {
     const vm = this;
-    vm.props.actions.selectDevice(device.serial);
+    vm.props.actions.selectDevice(device.serial, device);
+    vm.props.navigate('/file-manager');
   }
   componentDidMount() {
     this.listDevices();
@@ -36,12 +36,11 @@ class HomePage extends Component {
     const vm = this;
     return (
       <div>
-        <AppBar
-            title="Detected devices"
-            onTitleTouchTap={()=>vm.listDevices()}
-            iconElementRight={<FlatButton label="refresh" onClick={()=>vm.listDevices()} />}
-          />
-        <Divider />
+        <AppBar title="Detected devices" onTitleTouchTap={() => vm.listDevices()} iconStyleLeft={{
+          display: 'none'
+        }}
+        iconElementRight={<IconButton tooltip="refresh" onClick = {() => vm.listDevices()}> <RefreshIcon/> </IconButton>}
+        />
         <DeviceList onDeviceClick={(device) => vm.onDeviceSelect(device)} selectedDevice={vm.props.state.devices.selectedDevice} devices={vm.props.state.devices.devicesList}></DeviceList>
       </div>
     );
@@ -59,7 +58,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators(actions, dispatch),
+    navigate: (route) => dispatch(push(route))
   };
 };
 

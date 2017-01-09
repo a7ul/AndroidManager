@@ -1,7 +1,7 @@
 import {DEVICES_UPDATE_DEVICES, DEVICES_SELECT_DEVICE, DEVICES_UPDATE_DEVICE_PROPERTIES} from '../actions/index';
 import _ from 'lodash';
 
-export default function updateDevices(state = {}, action) {
+export default function devices(state = {}, action) {
   switch (action.type) {
     case DEVICES_UPDATE_DEVICES:
       {
@@ -11,7 +11,12 @@ export default function updateDevices(state = {}, action) {
       }
     case DEVICES_SELECT_DEVICE:
       {
-        return Object.assign({}, state, {selectedDevice: action.device});
+        return Object.assign({}, state, {
+          selectedDevice: {
+            serial: action.deviceSerial,
+            device: action.device
+          }
+        });
       }
     case DEVICES_UPDATE_DEVICE_PROPERTIES:
       {

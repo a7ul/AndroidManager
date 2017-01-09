@@ -4,6 +4,12 @@
     },
     "devices": {
         "devicesList": [],
-        "selectedDevice": null
+        "selectedDevice": {
+            "serial": null,
+            "device": {}
+        }
+    },
+    "filemanager": {
+        "currentPath": "/"
     }
 }

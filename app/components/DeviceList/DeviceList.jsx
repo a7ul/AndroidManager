@@ -33,7 +33,7 @@ class DeviceList extends Component {
 
 DeviceList.propTypes = {
   devices: React.PropTypes.array.isRequired,
-  selectedDevice: React.PropTypes.string,
+  selectedDevice: React.PropTypes.object,
   onDeviceClick: React.PropTypes.func
 };
 
