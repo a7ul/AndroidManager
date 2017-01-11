@@ -10,39 +10,6 @@ import {
   TableRowColumn
 } from 'material-ui/Table';
 
-const tableData = [
-  {
-    name: 'John Smith',
-    status: 'Employed',
-    selected: true
-  }, {
-    name: 'Randal White',
-    status: 'Unemployed'
-  }, {
-    name: 'Stephanie Sanders',
-    status: 'Employed',
-    selected: true
-  }, {
-    name: 'Steve Brown',
-    status: 'Employed'
-  }, {
-    name: 'Steve Brown',
-    status: 'Employed'
-  }, {
-    name: 'Steve Brown',
-    status: 'Employed'
-  },  {
-    name: 'Joyce Whitten',
-    status: 'Employed'
-  }, {
-    name: 'Samuel Roberts',
-    status: 'Employed'
-  }, {
-    name: 'Adam Moore',
-    status: 'Employed'
-  }
-];
-
 class ContentList extends Component {
 
   constructor(props) {
@@ -60,7 +27,9 @@ class ContentList extends Component {
       height: '100%'
     };
   }
+
   render() {
+    const vm = this;
     return (
       <div style={style.container}>
         <Table height={this.state.height} fixedHeader={this.state.fixedHeader} fixedFooter={this.state.fixedFooter} selectable={this.state.selectable} multiSelectable={this.state.multiSelectable}>
@@ -69,21 +38,22 @@ class ContentList extends Component {
               <TableHeaderColumn colSpan="3" tooltip="Super Header" style={{
                 textAlign: 'center'
               }}>
-                Super Header
+                {vm.props.currentPath}
               </TableHeaderColumn>
             </TableRow>
             <TableRow>
-              <TableHeaderColumn tooltip="The ID">ID</TableHeaderColumn>
-              <TableHeaderColumn tooltip="The Name">Name</TableHeaderColumn>
-              <TableHeaderColumn tooltip="The Status">Status</TableHeaderColumn>
+              <TableHeaderColumn tooltip="file name">Name</TableHeaderColumn>
+              <TableHeaderColumn tooltip="last modified timestamp">Last modified</TableHeaderColumn>
+              <TableHeaderColumn tooltip="file size">Size</TableHeaderColumn>
             </TableRow>
           </TableHeader>
+
           <TableBody displayRowCheckbox={this.state.showCheckboxes} deselectOnClickaway={this.state.deselectOnClickaway} showRowHover={this.state.showRowHover} stripedRows={this.state.stripedRows}>
-            {tableData.map((row, index) => (
+            {vm.props.fileList.map((row, index) => (
               <TableRow key={index} selected={row.selected}>
-                <TableRowColumn>{index}</TableRowColumn>
                 <TableRowColumn>{row.name}</TableRowColumn>
-                <TableRowColumn>{row.status}</TableRowColumn>
+                <TableRowColumn>{row.time.toString()}</TableRowColumn>
+                <TableRowColumn>{row.size}</TableRowColumn>
               </TableRow>
             ))}
           </TableBody>
@@ -107,6 +77,9 @@ class ContentList extends Component {
   }
 }
 
-ContentList.propTypes = {};
+ContentList.propTypes = {
+  fileList : React.PropTypes.array.isRequired,
+  currentPath: React.PropTypes.string.isRequired
+};
 
 export default ContentList;

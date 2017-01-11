@@ -11,10 +11,11 @@ const executeAdb = (commandsarray = []) => {
     }
     console.log('command: adb', commandsarray.join(' '));
     childProcess.execFile(adbUrl, commandsarray, (error, stdout, stderr) => {
-      if (error) {
-        return reject(stderr);
-      }
-      return resolve(stdout);
+      resolve({
+        error,
+        stdout,
+        stderr
+      });
     });
   });
 };
@@ -24,16 +25,34 @@ const executeAdbForDevice = (serial, command) => {
     '-s', serial, ...command
   ]);
 };
+const handleErrors = (output) => {
+  if (output.error) {
+    throw ({
+      error,
+      stderr
+    });
+  }
+  return output.stdout;
+};
+
+const ignoreErrors = (output) => {
+  return output.stdout;
+};
 
 const listDevices = () => {
-  return executeAdb(['devices']).then(parser.parseListDevices);
+  return executeAdb(['devices']).then(handleErrors).then(parser.parseListDevices);
 };
 
 const getDeviceProperties = (serial) => {
-  return executeAdbForDevice(serial, ['shell', 'getprop']).then(parser.parseDeviceProperties);
+  return executeAdbForDevice(serial, ['shell', 'getprop']).then(handleErrors).then(parser.parseDeviceProperties);
+};
+
+const getFileList = (serial, root = '/') => {
+  return executeAdbForDevice(serial, ['shell', 'ls', '-1', '-la',root]).then(ignoreErrors).then(parser.parseFileList);
 };
 
 module.exports = {
   listDevices,
-  getDeviceProperties
+  getDeviceProperties,
+  getFileList
 };

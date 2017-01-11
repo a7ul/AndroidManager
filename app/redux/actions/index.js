@@ -12,15 +12,27 @@ export function updateDevices(devices) {
   };
 }
 export function selectDevice(deviceSerial, device) {
-  return {type: DEVICES_SELECT_DEVICE, deviceSerial, device};
+  return {
+    type: DEVICES_SELECT_DEVICE,
+    deviceSerial,
+    device
+  };
 }
 export function updateDeviceProperties(serial, properties = {}) {
-  return {type: DEVICES_UPDATE_DEVICE_PROPERTIES, serial, properties};
+  return {
+    type: DEVICES_UPDATE_DEVICE_PROPERTIES,
+    serial,
+    properties
+  };
 }
 
 //FILE_MANAGER_ACTIONS
-export function changePath(newPath) {
-  return {type: FILEMANAGER_CHANGE_PATH, newPath};
+export function changeFileManagerPath(newPath = '/', fileList = []) {
+  return {
+    type: FILEMANAGER_CHANGE_PATH,
+    newPath,
+    fileList
+  };
 }
 //SAMPLE_ACTION_CREATORS
 export function sampleAction(payload) {

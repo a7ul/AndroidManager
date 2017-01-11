@@ -10,6 +10,7 @@
         }
     },
     "filemanager": {
-        "currentPath": "/"
+        "currentPath": "/",
+        "fileList": []
     }
 }

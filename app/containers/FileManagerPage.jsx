@@ -16,24 +16,38 @@ const styles = {
     height: '30px',
     width: '30px',
     padding: '8px 2px',
-    cursor:'pointer'
+    cursor: 'pointer'
   }
 };
 
 class FileManagerPage extends Component {
 
-  componentDidMount() {}
-  loadFilesOfCurrentDirectory() {}
+  componentDidMount() {
+    this.loadFilesOfDirectory();
+  }
+  loadFilesOfDirectory(directory) {
+    const vm = this;
+    const currentDirectory = directory || '/storage/43E0-1818';
+    adb.getFileList(_.result(vm.props.state.devices,'selectedDevice.serial') || 'ZY223BMSWJ',currentDirectory).then((fileList) => {
+      vm.props.actions.changeFileManagerPath(currentDirectory, fileList);
+    }).catch((er) => console.log('err', er));
+  }
   render() {
     const vm = this;
-    const selectedDeviceName = _.result(vm.props.state.devices,'selectedDevice.device.properties["ro.product.model"]') || vm.props.state.devices.selectedDevice.serial;
+    const selectedDeviceName = _.result(vm.props.state.devices, 'selectedDevice.device.properties["ro.product.model"]') || vm.props.state.devices.selectedDevice.serial;
     return (
       <div>
-        <AppBar title={`File Manager (${selectedDeviceName})`}
-          iconElementRight={<IconButton tooltip="refresh" onClick = {() => vm.loadFilesOfCurrentDirectory()}> <RefreshIcon/> </IconButton>}
-          iconElementLeft={<NavLeft style={styles.navLeftButton} onClick={() => vm.props.navigateBack()} />}
-        />
-        <ContentList></ContentList>
+        <AppBar title={`File Manager (${selectedDeviceName})`} iconElementRight={<IconButton tooltip = "refresh" onClick = {
+          () => {
+            vm.loadFilesOfDirectory();
+          }
+        } > <RefreshIcon/> < /IconButton>} iconElementLeft={<NavLeft style = {
+          styles.navLeftButton
+        }
+        onClick = {
+          () => vm.props.navigateBack()
+        } />}/>
+      <ContentList currentPath={vm.props.state.filemanager.currentPath} fileList={vm.props.state.filemanager.fileList}></ContentList>
       </div>
     );
   }

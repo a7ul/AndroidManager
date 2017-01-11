@@ -1,4 +1,6 @@
-import {FILEMANAGER_CHANGE_PATH} from '../actions/index';
+import {
+  FILEMANAGER_CHANGE_PATH
+} from '../actions/index';
 import _ from 'lodash';
 
 export default function filemanager(state = {}, action) {
@@ -6,7 +8,8 @@ export default function filemanager(state = {}, action) {
     case FILEMANAGER_CHANGE_PATH:
       {
         return Object.assign({}, state, {
-          currentPath: action.newPath
+          currentPath: action.newPath,
+          fileList: action.fileList
         });
       }
     default:
