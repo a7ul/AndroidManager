@@ -21,7 +21,7 @@ module.exports = {
       exclude: /(node_modules|bower_components)/,
       loader: 'babel',
       query: {
-        presets: ['react', 'es2015']
+        presets: ['react', 'es2015', 'stage-0']
       }
     }, {
       test: /\.scss$/,
@@ -40,7 +40,7 @@ module.exports = {
     proxy: {
       '/api/*': {
         target: 'http://localhost:1337',
-        rewrite: function (req) {
+        rewrite: function(req) {
           req.url = req.url.replace(/^\/api(.+)$/, '$1');
         }
       }

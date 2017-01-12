@@ -1,15 +1,14 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import * as actions from '../redux/actions/index';
 import adb from '../utils/adb';
 import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
 import NavLeft from 'material-ui/svg-icons/navigation/chevron-left';
-import RefreshIcon from 'material-ui/svg-icons/navigation/refresh';
-import {goBack, push} from 'react-router-redux';
+import { goBack, push } from 'react-router-redux';
 import _ from 'lodash';
 import ContentList from '../components/FileManager/ContentList';
+import HeaderIcons from '../components/Header/Buttons';
 
 const styles = {
   navLeftButton: {
@@ -28,28 +27,25 @@ class FileManagerPage extends Component {
   loadFilesOfDirectory(directory) {
     const vm = this;
     const currentDirectory = directory || '/storage/43E0-1818';
-    adb.getFileList(_.result(vm.props.state.devices,'selectedDevice.serial') || 'ZY223BMSWJ',currentDirectory).then((fileList) => {
+    adb.getFileList(_.result(vm.props.state.devices, 'selectedDevice.serial') || 'ZY223BMSWJ', currentDirectory).then((fileList) => {
       vm.props.actions.changeFileManagerPath(currentDirectory, fileList);
     }).catch((er) => console.log('err', er));
   }
+
   render() {
     const vm = this;
     const selectedDeviceName = _.result(vm.props.state.devices, 'selectedDevice.device.properties["ro.product.model"]') || vm.props.state.devices.selectedDevice.serial;
     return (
       <div>
-        <AppBar title={`File Manager (${selectedDeviceName})`} iconElementRight={<IconButton tooltip = "refresh" onClick = {
-          () => {
-            vm.loadFilesOfDirectory();
-          }
-        } > <RefreshIcon/> < /IconButton>} iconElementLeft={<NavLeft style = {
-          styles.navLeftButton
-        }
-        onClick = {
-          () => vm.props.navigateBack()
-        } />}/>
+        <AppBar title={`File Manager (${selectedDeviceName})`} iconElementRight={<HeaderIcons onRefreshClick={() => vm.loadFilesOfDirectory()}/>} iconElementLeft={<NavLeft style = {
+      styles.navLeftButton
+      }
+      onClick = {
+      () => vm.props.navigateBack()
+      } />}/>
         <ContentList uiConfig={vm.props.state.filemanager.uiConfig} currentPath={vm.props.state.filemanager.currentPath} fileList={vm.props.state.filemanager.fileList}></ContentList>
       </div>
-    );
+      );
   }
 }
 
@@ -59,7 +55,9 @@ FileManagerPage.propTypes = {
 };
 
 let mapStateToProps = (state) => {
-  return {state: state};
+  return {
+    state: state
+  };
 };
 
 let mapDispatchToProps = (dispatch) => {

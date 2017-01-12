@@ -4,12 +4,20 @@ export const DEVICES_SELECT_DEVICE = 'DEVICES_SELECT_DEVICE';
 export const DEVICES_UPDATE_DEVICE_PROPERTIES = 'DEVICES_UPDATE_DEVICE_PROPERTIES';
 export const FILEMANAGER_CHANGE_PATH = 'FILEMANAGER_CHANGE_PATH';
 export const FILEMANAGER_CHANGE_UI_CONFIG = 'FILEMANAGER_CHANGE_UI_CONFIG';
+export const ADD_WIRELESS_DEVICE = 'ADD_WIRELESS_DEVICE';
 
 //DEVICES_ACTION_CREATORS
 export function updateDevices(devices) {
   return {
     type: DEVICES_UPDATE_DEVICES,
     devices: devices || []
+  };
+}
+
+export function addWirelessDevice(ip) {
+  return {
+    type: ADD_WIRELESS_DEVICE,
+    ip
   };
 }
 export function selectDevice(deviceSerial, device) {
@@ -40,7 +48,8 @@ export function changeFileManagerUiConfig(uiConfig) {
     type: FILEMANAGER_CHANGE_UI_CONFIG,
     uiConfig
   };
-};
+}
+
 //SAMPLE_ACTION_CREATORS
 export function sampleAction(payload) {
   return {

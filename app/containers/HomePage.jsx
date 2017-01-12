@@ -1,13 +1,12 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import DeviceList from '../components/DeviceList/DeviceList';
 import * as actions from '../redux/actions/index';
 import adb from '../utils/adb';
 import AppBar from 'material-ui/AppBar';
-import {push} from 'react-router-redux';
-import IconButton from 'material-ui/IconButton';
-import RefreshIcon from 'material-ui/svg-icons/navigation/refresh';
+import { push } from 'react-router-redux';
+import HeaderIcons from '../components/Header/Buttons';
 
 class HomePage extends Component {
   listDevices() {
@@ -37,13 +36,12 @@ class HomePage extends Component {
     return (
       <div>
         <AppBar title="Detected devices" onTitleTouchTap={() => vm.listDevices()} iconStyleLeft={{
-          display: 'none'
-        }}
-        iconElementRight={<IconButton tooltip="refresh" onClick = {() => vm.listDevices()}> <RefreshIcon/> </IconButton>}
-        />
+        display: 'none'
+      }}
+      iconElementRight={<HeaderIcons onRefreshClick={() => vm.listDevices()}/>}/>
         <DeviceList onDeviceClick={(device) => vm.onDeviceSelect(device)} selectedDevice={vm.props.state.devices.selectedDevice} devices={vm.props.state.devices.devicesList}></DeviceList>
       </div>
-    );
+      );
   }
 }
 
@@ -53,7 +51,9 @@ HomePage.propTypes = {
 };
 
 let mapStateToProps = (state) => {
-  return {state: state};
+  return {
+    state: state
+  };
 };
 
 let mapDispatchToProps = (dispatch) => {
