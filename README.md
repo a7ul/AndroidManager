@@ -10,6 +10,8 @@ Features:
 
 3.React/Redux ready
 
+4.No need to install android/ADB drivers
+
 Steps:
 ------
 1. npm install
