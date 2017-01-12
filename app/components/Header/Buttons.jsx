@@ -65,8 +65,7 @@ class HeaderButtons extends React.Component {
       />
     ];
     return (  <Dialog title="Add a wireless device" actions={actions} modal={false} open={this.state.modalOpen} onRequestClose={this.handleClose}>
-          Open the ADB wireless app on your phone.
-          Connect via USB for initial setup and press configure.
+          Open the ADB wireless app on your phone. Make sure that you have done the initial configuration (adb tcpip 5555).
           <TextField
       hintText="Enter your mobile's IP address" onChange={this.handleIPAddress}
       />
