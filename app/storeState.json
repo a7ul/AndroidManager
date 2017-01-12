@@ -11,6 +11,18 @@
     },
     "filemanager": {
         "currentPath": "/",
-        "fileList": []
+        "fileList": [],
+        "uiConfig": {
+            "fixedHeader": true,
+            "fixedFooter": true,
+            "stripedRows": false,
+            "showRowHover": true,
+            "selectable": true,
+            "multiSelectable": true,
+            "enableSelectAll": true,
+            "deselectOnClickaway": false,
+            "showCheckboxes": true,
+            "height": "100%"
+        }
     }
 }

@@ -47,7 +47,7 @@ class FileManagerPage extends Component {
         onClick = {
           () => vm.props.navigateBack()
         } />}/>
-      <ContentList currentPath={vm.props.state.filemanager.currentPath} fileList={vm.props.state.filemanager.fileList}></ContentList>
+        <ContentList uiConfig={vm.props.state.filemanager.uiConfig} currentPath={vm.props.state.filemanager.currentPath} fileList={vm.props.state.filemanager.fileList}></ContentList>
       </div>
     );
   }

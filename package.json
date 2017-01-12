@@ -6,7 +6,7 @@
   "scripts": {
     "test": "NODE_ENV='test' mocha test --recursive --require babel-core/register",
     "testw": "NODE_ENV='test' mocha test --recursive --require babel-core/register -w",
-    "start": "ttab \"NODE_ENV='dev' ./node_modules/.bin/electron index.js\" && NODE_ENV='dev' WEBPACK_TARGET='electron'  webpack-dev-server --hot --inline",
+    "start": "ttab \"NODE_ENV='dev' WEBPACK_TARGET='electron' ./node_modules/.bin/webpack-dev-server --hot --inline\" && NODE_ENV='dev' ./node_modules/.bin/electron index.js",
     "start-web": "NODE_ENV='dev' WEBPACK_TARGET='web' webpack-dev-server --hot --inline",
     "build": "WEBPACK_TARGET='electron' webpack -p && NODE_ENV='build' electron index.js",
     "build-web": "WEBPACK_TARGET='web' webpack -p && open index.html",
