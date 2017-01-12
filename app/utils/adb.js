@@ -27,10 +27,7 @@ const executeAdbForDevice = (serial, command) => {
 };
 const handleErrors = (output) => {
   if (output.error) {
-    throw ({
-      error,
-      stderr
-    });
+    throw (output);
   }
   return output.stdout;
 };
@@ -48,7 +45,7 @@ const getDeviceProperties = (serial) => {
 };
 
 const getFileList = (serial, root = '/') => {
-  return executeAdbForDevice(serial, ['shell', 'ls', '-1', '-la',root]).then(ignoreErrors).then(parser.parseFileList);
+  return executeAdbForDevice(serial, ['shell', 'ls', '-1', '-la', root]).then(ignoreErrors).then(parser.parseFileList);
 };
 
 module.exports = {
