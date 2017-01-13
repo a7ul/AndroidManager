@@ -51,5 +51,6 @@ const getFileList = (serial, root = '/') => {
 module.exports = {
   listDevices,
   getDeviceProperties,
-  getFileList
+  getFileList,
+  executeAdb
 };
