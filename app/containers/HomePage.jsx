@@ -24,6 +24,7 @@ class HomePage extends Component {
       devices.forEach((eachDevice) => {
         adb.getDeviceProperties(eachDevice.serial).then((deviceProperties) => {
           vm.props.actions.updateDeviceProperties(eachDevice.serial, deviceProperties);
+          vm.autoRefresh();
         }).catch(err => {
           console.log(err);
           vm.props.actions.updateDeviceProperties(eachDevice.serial, {});
@@ -38,7 +39,6 @@ class HomePage extends Component {
   }
   componentDidMount() {
     this.listDevices();
-    this.autoRefresh();
   }
   componentWillUnmount() {
     clearInterval(this.autoRefresh);
