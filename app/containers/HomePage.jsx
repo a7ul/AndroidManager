@@ -11,11 +11,9 @@ import HeaderIcons from '../components/Header/Buttons';
 
 class HomePage extends Component {
   autoRefresh = () => {
-    setInterval(() => {
-      if (result(this.props.state, 'devices.devicesList', []).length === 0) {
-        this.listDevices();
-      }
-    }, 2000);
+    if (result(this.props.state, 'devices.devicesList', []).length === 0) {
+      this.listDevices();
+    }
   }
   listDevices() {
     const vm = this;
@@ -24,7 +22,6 @@ class HomePage extends Component {
       devices.forEach((eachDevice) => {
         adb.getDeviceProperties(eachDevice.serial).then((deviceProperties) => {
           vm.props.actions.updateDeviceProperties(eachDevice.serial, deviceProperties);
-          vm.autoRefresh();
         }).catch(err => {
           console.log(err);
           vm.props.actions.updateDeviceProperties(eachDevice.serial, {});
@@ -39,6 +36,7 @@ class HomePage extends Component {
   }
   componentDidMount() {
     this.listDevices();
+    setInterval(this.autoRefresh, 2000);
   }
   componentWillUnmount() {
     clearInterval(this.autoRefresh);
