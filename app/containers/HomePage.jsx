@@ -6,9 +6,15 @@ import * as actions from '../redux/actions/index';
 import adb from '../utils/adb';
 import AppBar from 'material-ui/AppBar';
 import { push } from 'react-router-redux';
+import result from 'lodash/result';
 import HeaderIcons from '../components/Header/Buttons';
 
 class HomePage extends Component {
+  autoRefresh = () => {
+    if (result(this.props.state, 'devices.devicesList', []).length === 0) {
+      this.listDevices();
+    }
+  }
   listDevices() {
     const vm = this;
     adb.listDevices().then(devices => {
@@ -30,6 +36,10 @@ class HomePage extends Component {
   }
   componentDidMount() {
     this.listDevices();
+    setInterval(this.autoRefresh, 2000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.autoRefresh);
   }
   render() {
     const vm = this;
