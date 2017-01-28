@@ -21,8 +21,13 @@
             "multiSelectable": true,
             "enableSelectAll": true,
             "deselectOnClickaway": false,
-            "showCheckboxes": true,
+            "showCheckboxes": false,
             "height": "100%"
         }
+    },
+    "settings": {
+      "refreshDelay": 4000,
+      "refreshToggleDefault": true,
+      "appTheme": "light"
     }
 }

@@ -12,7 +12,8 @@ import HeaderIcons from '../components/Header/HomeButtons';
 class HomePage extends Component {
 
   registerAutoUpdate = () => {
-    this.intervalHolder = setInterval(()=>{this.listDevices()}, 2000);
+    console.log('this.props.state.settings.refreshDelay',this.props.state.settings.refreshDelay);
+    this.intervalHolder = setInterval(()=>{this.listDevices()}, this.props.state.settings.refreshDelay);
   }
   cancelAutoUpdate = () => {
     clearInterval(this.intervalHolder);
@@ -61,6 +62,7 @@ class HomePage extends Component {
                     : this.cancelAutoUpdate()
                 }
               }
+              toggleDefault = {this.props.state.settings.refreshToggleDefault}
             ></HeaderIcons>
           }></AppBar>
         <DeviceList

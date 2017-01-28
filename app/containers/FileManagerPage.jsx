@@ -26,8 +26,8 @@ class FileManagerPage extends Component {
   }
   loadFilesOfDirectory(directory) {
     const vm = this;
-    const currentDirectory = directory || '/storage/43E0-1818';
-    adb.getFileList(_.result(vm.props.state.devices, 'selectedDevice.serial') || 'ZY223BMSWJ', currentDirectory).then((fileList) => {
+    const currentDirectory = directory || '/';
+    adb.getFileList(_.result(vm.props.state.devices, 'selectedDevice.serial') || '', currentDirectory).then((fileList) => {
       vm.props.actions.changeFileManagerPath(currentDirectory, fileList);
     }).catch((er) => console.log('err', er));
   }

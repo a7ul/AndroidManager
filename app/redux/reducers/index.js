@@ -1,9 +1,21 @@
-import {combineReducers} from 'redux';
+import {
+  combineReducers
+} from 'redux';
 import sample from './sample';
 import devices from './devices';
 import filemanager from './filemanager';
-import {routerReducer} from 'react-router-redux';
+import settings from './settings';
 
-const rootReducer = combineReducers({sample, routing: routerReducer, devices, filemanager});
+import {
+  routerReducer
+} from 'react-router-redux';
+
+const rootReducer = combineReducers({
+  sample,
+  routing: routerReducer,
+  devices,
+  filemanager,
+  settings
+});
 
 export default rootReducer;

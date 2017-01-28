@@ -36,7 +36,7 @@ class HeaderButtons extends React.Component {
             backgroundColor: 'lightblue'
           }} thumbSwitchedStyle={{
             backgroundColor: 'black'
-          }} defaultToggled={true} onToggle={this.handleToggle} labelPosition="right"/>
+          }} defaultToggled={this.props.toggleDefault} onToggle={this.handleToggle} labelPosition="right"/>
         </IconButton>
         <IconButton tooltip="refresh" onClick={this.props.onRefreshClick}>
           <RefreshIcon/>
@@ -53,7 +53,7 @@ class HeaderButtons extends React.Component {
 HeaderButtons.propTypes = {
   onRefreshClick: PropTypes.func,
   onToggleClick: PropTypes.func,
-  addWirelessDevice: PropTypes.func
+  toggleDefault: PropTypes.bool
 };
 
 export default HeaderButtons;
