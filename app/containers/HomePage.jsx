@@ -7,16 +7,12 @@ import adb from '../utils/adb';
 import AppBar from 'material-ui/AppBar';
 import {push} from 'react-router-redux';
 import result from 'lodash/result';
-import HeaderIcons from '../components/Header/Buttons';
+import HeaderIcons from '../components/Header/HomeButtons';
 
 class HomePage extends Component {
-  autoRefresh = () => {
-    if (result(this.props.state, 'devices.devicesList', []).length === 0) {
-      this.listDevices();
-    }
-  }
+
   registerAutoUpdate = () => {
-    this.intervalHolder = setInterval(this.autoRefresh, 2000);
+    this.intervalHolder = setInterval(()=>{this.listDevices()}, 2000);
   }
   cancelAutoUpdate = () => {
     clearInterval(this.intervalHolder);
@@ -51,19 +47,26 @@ class HomePage extends Component {
     const vm = this;
     return (
       <div>
-        <AppBar title="Detected devices" onTitleTouchTap={() => vm.listDevices()} iconStyleLeft={{
-          display: 'none'
-        }} iconElementRight={< HeaderIcons onRefreshClick = {
-          () => vm.listDevices()
-        }
-        onToggleClick = {
-          (evt, value) => {
-            (value)
-              ? this.registerAutoUpdate()
-              : this.cancelAutoUpdate()
-          }
-        } />}/>
-        <DeviceList onDeviceClick={(device) => vm.onDeviceSelect(device)} selectedDevice={vm.props.state.devices.selectedDevice} devices={vm.props.state.devices.devicesList}></DeviceList>
+        <AppBar
+          title="Detected devices"
+          onTitleTouchTap={() => vm.listDevices()}
+          iconStyleLeft={{display: 'none'}}
+          iconElementRight={
+            <HeaderIcons
+              onRefreshClick = {() => vm.listDevices()}
+              onToggleClick = {
+                (evt, value) => {
+                  (value)
+                    ? this.registerAutoUpdate()
+                    : this.cancelAutoUpdate()
+                }
+              }
+            ></HeaderIcons>
+          }></AppBar>
+        <DeviceList
+          onDeviceClick={(device) => vm.onDeviceSelect(device)}
+          selectedDevice={vm.props.state.devices.selectedDevice}
+          devices={vm.props.state.devices.devicesList}></DeviceList>
       </div>
     );
   }
