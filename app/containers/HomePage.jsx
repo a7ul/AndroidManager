@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import DeviceList from '../components/DeviceList/DeviceList';
 import * as actions from '../redux/actions/index';
 import adb from '../utils/adb';
 import AppBar from 'material-ui/AppBar';
-import { push } from 'react-router-redux';
+import {push} from 'react-router-redux';
 import result from 'lodash/result';
 import HeaderIcons from '../components/Header/Buttons';
 
@@ -14,6 +14,12 @@ class HomePage extends Component {
     if (result(this.props.state, 'devices.devicesList', []).length === 0) {
       this.listDevices();
     }
+  }
+  registerAutoUpdate = () => {
+    this.intervalHolder = setInterval(this.autoRefresh, 2000);
+  }
+  cancelAutoUpdate = () => {
+    clearInterval(this.intervalHolder);
   }
   listDevices() {
     const vm = this;
@@ -36,22 +42,30 @@ class HomePage extends Component {
   }
   componentDidMount() {
     this.listDevices();
-    setInterval(this.autoRefresh, 2000);
+    this.registerAutoUpdate();
   }
   componentWillUnmount() {
-    clearInterval(this.autoRefresh);
+    this.cancelAutoUpdate();
   }
   render() {
     const vm = this;
     return (
       <div>
         <AppBar title="Detected devices" onTitleTouchTap={() => vm.listDevices()} iconStyleLeft={{
-        display: 'none'
-      }}
-      iconElementRight={<HeaderIcons onRefreshClick={() => vm.listDevices()}/>}/>
+          display: 'none'
+        }} iconElementRight={< HeaderIcons onRefreshClick = {
+          () => vm.listDevices()
+        }
+        onToggleClick = {
+          (evt, value) => {
+            (value)
+              ? this.registerAutoUpdate()
+              : this.cancelAutoUpdate()
+          }
+        } />}/>
         <DeviceList onDeviceClick={(device) => vm.onDeviceSelect(device)} selectedDevice={vm.props.state.devices.selectedDevice} devices={vm.props.state.devices.devicesList}></DeviceList>
       </div>
-      );
+    );
   }
 }
 
@@ -61,9 +75,7 @@ HomePage.propTypes = {
 };
 
 let mapStateToProps = (state) => {
-  return {
-    state: state
-  };
+  return {state: state};
 };
 
 let mapDispatchToProps = (dispatch) => {

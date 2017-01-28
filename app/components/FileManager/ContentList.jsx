@@ -20,7 +20,7 @@ class ContentList extends Component {
     const vm = this;
     return (
       <div style={style.container}>
-        <Table height={vm.props.uiConfig.height} fixedHeader={vm.props.uiConfig.fixedHeader} fixedFooter={vm.props.uiConfig.fixedFooter} selectable={vm.props.uiConfig.selectable} multiSelectable={vm.props.uiConfig.multiSelectable}>
+        <Table onCellClick= {this.handleCellClick} height={vm.props.uiConfig.height} fixedHeader={vm.props.uiConfig.fixedHeader} fixedFooter={vm.props.uiConfig.fixedFooter} selectable={vm.props.uiConfig.selectable} multiSelectable={vm.props.uiConfig.multiSelectable}>
           <TableHeader displaySelectAll={vm.props.uiConfig.showCheckboxes} adjustForCheckbox={vm.props.uiConfig.showCheckboxes} enableSelectAll={vm.props.uiConfig.enableSelectAll}>
             <TableRow>
               <TableHeaderColumn colSpan="3" tooltip="Super Header" style={{
