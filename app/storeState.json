@@ -5,7 +5,7 @@
     "devices": {
         "devicesList": [],
         "selectedDevice": {
-            "serial": null,
+            "serial": "10.6.2.1:5555",
             "device": {}
         }
     },
@@ -26,8 +26,8 @@
         }
     },
     "settings": {
-      "refreshDelay": 4000,
-      "refreshToggleDefault": true,
-      "appTheme": "light"
+        "refreshDelay": 4000,
+        "refreshToggleDefault": true,
+        "appTheme": "light"
     }
 }

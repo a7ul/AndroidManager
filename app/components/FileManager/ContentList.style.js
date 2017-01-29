@@ -1,10 +1,18 @@
 export default {
   container: {
-    position: 'fixed',
-    top: '60px',
-    bottom: 0,
-    left: 0,
-    right: 0
+    overflow: 'auto'
+  },
+  table: {
+
+  },
+  tableHeader: {
+    height: '120px'
+  },
+  tableBody: {
+  },
+  tableFooter: {
+    height: '100px',
+    
   },
   deviceBox: {
     padding: '10px',
