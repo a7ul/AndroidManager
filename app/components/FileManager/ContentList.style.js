@@ -1,30 +1,42 @@
 export default {
-  container : {
-    padding: '10px'
+  container: {
+    overflow: 'auto'
   },
-  deviceBox : {
+  table: {
+
+  },
+  tableHeader: {
+    height: '120px'
+  },
+  tableBody: {
+  },
+  tableFooter: {
+    height: '100px',
+    
+  },
+  deviceBox: {
     padding: '10px',
     display: 'inline-block',
     cursor: 'pointer'
   },
-  selectedDevice : {
+  selectedDevice: {
     background: 'lightgray'
   },
-  phoneIcon : {
+  phoneIcon: {
     margin: '0 auto'
   },
-  deviceBoxContent : {},
-  deviceName : {
+  deviceBoxContent: {},
+  deviceName: {
     textAlign: 'center'
   },
-  deviceStatus : {
+  deviceStatus: {
     textAlign: 'center'
   },
-  noDevice : {
+  noDevice: {
     padding: '20px',
     textAlign: 'center'
   },
-  infoItem : {
+  infoItem: {
     fontSize: '14px',
     padding: '16px 16px 6px 50px'
   }

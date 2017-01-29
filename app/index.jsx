@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {render} from 'react-dom';
 import routes from './router';
 import {Router, hashHistory} from 'react-router';
@@ -20,17 +20,22 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 const store = initStore(initialStoreState);
 const history = syncHistoryWithStore(hashHistory, store);
 
-const MainComponent = connect(mapStateToProps, mapDispatchToProps)(React.createClass({
+class MainComponent extends Component {
+  themes = {
+    'light': getMuiTheme(lightBaseTheme),
+    'dark': getMuiTheme(darkBaseTheme)
+  };
   render() {
+    const vm = this;
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+      <MuiThemeProvider muiTheme={vm.themes[vm.props.state.settings.appTheme || 'light']}>
         <div>
           <Router routes={routes} history={history}/>
         </div>
       </MuiThemeProvider>
     );
   }
-}));
+};
 
 const mapStateToProps = (state) => {
   return {state: state};
@@ -40,7 +45,9 @@ const mapDispatchToProps = () => {
   return {};
 };
 
+const ConnectedMainComponent = connect(mapStateToProps, mapDispatchToProps)(MainComponent);
+
 render(
   <Provider store={store}>
-  <MainComponent/>
+  <ConnectedMainComponent/>
 </Provider>, document.getElementById('root'));

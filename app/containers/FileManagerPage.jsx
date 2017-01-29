@@ -9,6 +9,8 @@ import {goBack, push} from 'react-router-redux';
 import _ from 'lodash';
 import ContentList from '../components/FileManager/ContentList';
 import HeaderIcons from '../components/Header/FileManagerButtons';
+import Table from '../components/FileManager/Table';
+import path from 'path';
 
 const styles = {
   navLeftButton: {
@@ -26,34 +28,35 @@ class FileManagerPage extends Component {
   }
   loadFilesOfDirectory(directory) {
     const vm = this;
-    const currentDirectory = directory || '/storage/43E0-1818';
-    adb.getFileList(_.result(vm.props.state.devices, 'selectedDevice.serial') || 'ZY223BMSWJ', currentDirectory).then((fileList) => {
+    const currentDirectory = directory;
+    adb.getFileList(_.result(vm.props.state.devices, 'selectedDevice.serial') || '', currentDirectory).then((fileList) => {
       vm.props.actions.changeFileManagerPath(currentDirectory, fileList);
     }).catch((er) => console.log('err', er));
   }
-
+  getNextPath(current, next) {
+    return path.join(current, next);
+  }
   render() {
     const vm = this;
     const selectedDeviceName = _.result(vm.props.state.devices, 'selectedDevice.device.properties["ro.product.model"]') || vm.props.state.devices.selectedDevice.serial;
     return (
       <div>
-        <AppBar
-          title={`File Manager (${selectedDeviceName})`}
-          iconElementRight={
-            <HeaderIcons onRefreshClick = {
-                () => vm.loadFilesOfDirectory()
-              }/>
-            }
-          iconElementLeft={
-            <NavLeft
-              style={styles.navLeftButton}
-              onClick={
-                  () => vm.props.navigateBack()
-              }>
-            </NavLeft>
-          }>
-          </AppBar>
-        <ContentList uiConfig={vm.props.state.filemanager.uiConfig} currentPath={vm.props.state.filemanager.currentPath} fileList={vm.props.state.filemanager.fileList}></ContentList>
+        <AppBar title={`File Manager (${selectedDeviceName})`} iconElementRight={<HeaderIcons onRefreshClick = {
+          () => vm.loadFilesOfDirectory(vm.props.state.filemanager.currentPath)
+        } />} iconElementLeft={<NavLeft style = {
+          styles.navLeftButton
+        }
+        onClick = {
+          () => vm.props.navigateBack()
+        } > </NavLeft>}></AppBar>
+        {/*
+            <ContentList uiConfig={vm.props.state.filemanager.uiConfig} currentPath={vm.props.state.filemanager.currentPath} fileList={vm.props.state.filemanager.fileList}></ContentList>
+             */}
+        <Table onRowClick={(rowData) => {
+          if (rowData.type === 'DIRECTORY') {
+            vm.loadFilesOfDirectory(vm.getNextPath(vm.props.state.filemanager.currentPath, rowData.name));
+          }
+        }} currentPath={vm.props.state.filemanager.currentPath} fileList={vm.props.state.filemanager.fileList}></Table>
       </div>
     );
   }
