@@ -7,7 +7,6 @@ import AppBar from 'material-ui/AppBar';
 import NavLeft from 'material-ui/svg-icons/navigation/chevron-left';
 import {goBack, push} from 'react-router-redux';
 import _ from 'lodash';
-import ContentList from '../components/FileManager/ContentList';
 import HeaderIcons from '../components/Header/FileManagerButtons';
 import Table from '../components/FileManager/Table';
 import path from 'path';
@@ -41,20 +40,17 @@ class FileManagerPage extends Component {
     const selectedDeviceName = _.result(vm.props.state.devices, 'selectedDevice.device.properties["ro.product.model"]') || vm.props.state.devices.selectedDevice.serial;
     return (
       <div>
-        <AppBar title={`File Manager (${selectedDeviceName})`} iconElementRight={<HeaderIcons onRefreshClick = {
+        <AppBar title={`File Manager (${selectedDeviceName})`} iconElementRight={< HeaderIcons onRefreshClick = {
           () => vm.loadFilesOfDirectory(vm.props.state.filemanager.currentPath)
-        } />} iconElementLeft={<NavLeft style = {
+        } />} iconElementLeft={< NavLeft style = {
           styles.navLeftButton
         }
         onClick = {
           () => vm.props.navigateBack()
         } > </NavLeft>}></AppBar>
-        {/*
-            <ContentList uiConfig={vm.props.state.filemanager.uiConfig} currentPath={vm.props.state.filemanager.currentPath} fileList={vm.props.state.filemanager.fileList}></ContentList>
-             */}
         <Table onRowClick={(rowData) => {
-          if (rowData.type === 'DIRECTORY') {
-            vm.loadFilesOfDirectory(vm.getNextPath(vm.props.state.filemanager.currentPath, rowData.name));
+          if (rowData.type === 'DIRECTORY' || rowData.type === 'SYMLINK') {
+            vm.loadFilesOfDirectory(vm.getNextPath(vm.props.state.filemanager.currentPath, rowData.name+'/'));
           }
         }} currentPath={vm.props.state.filemanager.currentPath} fileList={vm.props.state.filemanager.fileList}></Table>
       </div>

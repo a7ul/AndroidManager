@@ -11,19 +11,7 @@
     },
     "filemanager": {
         "currentPath": "/",
-        "fileList": [],
-        "uiConfig": {
-            "fixedHeader": true,
-            "fixedFooter": true,
-            "stripedRows": false,
-            "showRowHover": true,
-            "selectable": true,
-            "multiSelectable": true,
-            "enableSelectAll": true,
-            "deselectOnClickaway": false,
-            "showCheckboxes": false,
-            "height": "100%"
-        }
+        "fileList": []
     },
     "settings": {
         "refreshDelay": 4000,

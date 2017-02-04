@@ -4,7 +4,7 @@ import adbUrl from '../bin/24/adb.osx.bin';
 
 console.log('adb binary:', adbUrl);
 
-const executeAdb = (commandsarray = []) => {
+const executeAdb = (commandsarray) => {
   return new Promise((resolve, reject) => {
     if (!(commandsarray instanceof Array)) {
       return reject('commands not an array');
@@ -33,10 +33,12 @@ const handleErrors = (output) => {
 };
 
 const ignoreErrors = (output) => {
+  console.log(output.error);
   return output.stdout;
 };
 
 const listDevices = () => {
+  console.log(executeAdb);
   return executeAdb(['devices']).then(handleErrors).then(parser.parseListDevices);
 };
 

@@ -32,6 +32,9 @@
   },
   "globals": {
     "document": true,
+    "describe": true,
+    "expect": true,
+    "jest": true,
     "__DEV__": true,
     "__ELECTRON__": true
   }

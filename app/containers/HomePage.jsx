@@ -6,14 +6,15 @@ import * as actions from '../redux/actions/index';
 import adb from '../utils/adb';
 import AppBar from 'material-ui/AppBar';
 import {push} from 'react-router-redux';
-import result from 'lodash/result';
 import HeaderIcons from '../components/Header/HomeButtons';
 
 class HomePage extends Component {
 
   registerAutoUpdate = () => {
-    console.log('this.props.state.settings.refreshDelay',this.props.state.settings.refreshDelay);
-    this.intervalHolder = setInterval(()=>{this.listDevices()}, this.props.state.settings.refreshDelay);
+    console.log('this.props.state.settings.refreshDelay', this.props.state.settings.refreshDelay);
+    this.intervalHolder = setInterval(() => {
+      this.listDevices();
+    }, this.props.state.settings.refreshDelay);
   }
   cancelAutoUpdate = () => {
     clearInterval(this.intervalHolder);
@@ -48,27 +49,22 @@ class HomePage extends Component {
     const vm = this;
     return (
       <div>
-        <AppBar
-          title="Detected devices"
-          onTitleTouchTap={() => vm.listDevices()}
-          iconStyleLeft={{display: 'none'}}
-          iconElementRight={
-            <HeaderIcons
-              onRefreshClick = {() => vm.listDevices()}
-              onToggleClick = {
-                (evt, value) => {
-                  (value)
-                    ? this.registerAutoUpdate()
-                    : this.cancelAutoUpdate()
-                }
-              }
-              toggleDefault = {this.props.state.settings.refreshToggleDefault}
-            ></HeaderIcons>
-          }></AppBar>
-        <DeviceList
-          onDeviceClick={(device) => vm.onDeviceSelect(device)}
-          selectedDevice={vm.props.state.devices.selectedDevice}
-          devices={vm.props.state.devices.devicesList}></DeviceList>
+        <AppBar title="Detected devices" onTitleTouchTap={() => vm.listDevices()} iconStyleLeft={{
+          display: 'none'
+        }} iconElementRight={< HeaderIcons onRefreshClick = {
+          () => vm.listDevices()
+        }
+        onToggleClick = {
+          (evt, value) => {
+            (value)
+              ? this.registerAutoUpdate()
+              : this.cancelAutoUpdate();
+          }
+        }
+        toggleDefault = {
+          this.props.state.settings.refreshToggleDefault
+        } > </HeaderIcons>}></AppBar>
+        <DeviceList onDeviceClick={(device) => vm.onDeviceSelect(device)} selectedDevice={vm.props.state.devices.selectedDevice} devices={vm.props.state.devices.devicesList}></DeviceList>
       </div>
     );
   }

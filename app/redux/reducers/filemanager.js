@@ -2,7 +2,6 @@ import {
   FILEMANAGER_CHANGE_PATH,
   FILEMANAGER_CHANGE_UI_CONFIG
 } from '../actions/index';
-import _ from 'lodash';
 
 export default function filemanager(state = {}, action) {
   switch (action.type) {
@@ -12,7 +11,7 @@ export default function filemanager(state = {}, action) {
           name: '..',
           time: '',
           type: 'DIRECTORY'
-        }
+        };
         return Object.assign({}, state, {
           currentPath: action.newPath,
           fileList: [parentDir, ...action.fileList]

@@ -35,7 +35,7 @@ class MainComponent extends Component {
       </MuiThemeProvider>
     );
   }
-};
+}
 
 const mapStateToProps = (state) => {
   return {state: state};
