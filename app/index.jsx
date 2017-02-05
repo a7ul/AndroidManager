@@ -6,6 +6,8 @@ import {syncHistoryWithStore} from 'react-router-redux';
 import {Provider} from 'react-redux';
 import {initStore} from './redux/store/store';
 
+import InfoSnackbar from './components/Snackbar/InfoSnackbar';
+
 import initialStoreState from './storeState.json';
 import {connect} from 'react-redux';
 
@@ -31,6 +33,7 @@ class MainComponent extends Component {
       <MuiThemeProvider muiTheme={vm.themes[vm.props.state.settings.appTheme || 'light']}>
         <div>
           <Router routes={routes} history={history}/>
+          <InfoSnackbar />
         </div>
       </MuiThemeProvider>
     );

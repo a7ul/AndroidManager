@@ -1,66 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Snackbar from 'material-ui/Snackbar';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import Drawer from 'material-ui/Drawer';
 
-export default class InfoSnackbar extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      autoHideDuration: 4000,
-      message: 'Event added to your calendar',
-      open: false,
-    };
-  }
-
-  handleTouchTap = () => {
-    this.setState({
-      open: true,
-    });
-  };
-
-  handleActionTouchTap = () => {
-    this.setState({
-      open: false,
-    });
-    alert('Event removed from your calendar.');
-  };
-
-  handleChangeDuration = (event) => {
-    const value = event.target.value;
-    this.setState({
-      autoHideDuration: value.length > 0 ? parseInt(value) : 0,
-    });
-  };
-
-  handleRequestClose = () => {
-    this.setState({
-      open: false,
-    });
-  };
-
+export default class InfoSnackbar extends Component {
   render() {
     return (
       <div>
-        <RaisedButton
-          onTouchTap={this.handleTouchTap}
-          label="Add to my calendar"
-        />
-        <br />
-        <TextField
-          floatingLabelText="Auto Hide Duration in ms"
-          value={this.state.autoHideDuration}
-          onChange={this.handleChangeDuration}
-        />
-        <Snackbar
-          open={this.state.open}
-          message={this.state.message}
-          action="undo"
-          autoHideDuration={this.state.autoHideDuration}
+        <Snackbar open={false}
+          message={'test'}
+          action={'More'}
+          autoHideDuration={3000}
           onActionTouchTap={this.handleActionTouchTap}
-          onRequestClose={this.handleRequestClose}
-        />
+          onRequestClose={this.handleRequestClose}/>
+        <Drawer width={400}
+          openSecondary={true}
+          open={false}>
+        </Drawer>
       </div>
     );
   }

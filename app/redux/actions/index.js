@@ -4,6 +4,9 @@ export const DEVICES_SELECT_DEVICE = 'DEVICES_SELECT_DEVICE';
 export const DEVICES_UPDATE_DEVICE_PROPERTIES = 'DEVICES_UPDATE_DEVICE_PROPERTIES';
 export const FILEMANAGER_CHANGE_PATH = 'FILEMANAGER_CHANGE_PATH';
 export const FILEMANAGER_CHANGE_UI_CONFIG = 'FILEMANAGER_CHANGE_UI_CONFIG';
+export const ERROR_MESSAGE = 'ERROR_MESSAGE';
+export const ERROR_SNACKBAR_TOGGLE = 'ERROR_SNACKBAR_TOGGLE';
+export const ERROR_DRAWER_TOGGLE = 'ERROR_DRAWER_TOGGLE';
 
 //DEVICES_ACTION_CREATORS
 export function updateDevices(devices) {
@@ -50,3 +53,15 @@ export function sampleAction(payload) {
     payload: payload || 'Yo!'
   };
 }
+
+//ERROR MANAGEMENT
+export function error(shortMessage, longMessage) {
+  return {
+    type: ERROR_MESSAGE,
+    shortMessage,
+    longMessage
+  };
+}
+
+// export const ERROR_SNACKBAR_TOGGLE = 'ERROR_SNACKBAR_TOGGLE';
+// export const ERROR_DRAWER_TOGGLE = 'ERROR_DRAWER_TOGGLE';

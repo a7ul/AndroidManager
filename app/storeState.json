@@ -17,5 +17,10 @@
         "refreshDelay": 4000,
         "refreshToggleDefault": true,
         "appTheme": "light"
+    },
+    "error": {
+        "errorList": [],
+        "snackbarToggle": false,
+        "drawerToggle": false
     }
 }

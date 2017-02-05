@@ -38,7 +38,6 @@ const ignoreErrors = (output) => {
 };
 
 const listDevices = () => {
-  console.log(executeAdb);
   return executeAdb(['devices']).then(handleErrors).then(parser.parseListDevices);
 };
 
